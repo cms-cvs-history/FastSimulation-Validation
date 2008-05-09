@@ -1,0 +1,38 @@
+#
+# Define Validation sequence over "highPurity" tracks. 
+# For proper comparison the same requirement should be applied on FullSim as well.
+#
+
+
+  # Tracking particle module
+include "SimGeneral/TrackingAnalysis/data/trackingParticles.cfi"
+replace trackingtruthprod.TrackerHitLabels = {"TrackerHits"}
+
+  # Track Associators
+include "SimTracker/TrackAssociation/data/TrackAssociatorByChi2.cfi"
+include "SimTracker/TrackAssociation/data/TrackAssociatorByHits.cfi"
+replace TrackAssociatorByHitsESProducer.associateStrip = false 
+replace TrackAssociatorByHitsESProducer.associatePixel = false
+replace TrackAssociatorByHitsESProducer.ROUList = {"TrackerHits"}
+##new postreco sequence
+include "SimTracker/TrackAssociation/data/trackMCMatch.cfi" 
+include "SimTracker/TrackAssociation/data/trackingParticleRecoTrackAsssociation.cff"
+
+
+  # Track Validator    
+include "Validation/RecoTrack/data/cuts.cff"
+include "Validation/RecoTrack/data/cutsTPEffic.cfi"
+include "Validation/RecoTrack/data/cutsTPFake.cfi"
+include "Validation/RecoTrack/data/MultiTrackValidator.cff"
+# pass only high purity tracks
+replace multiTrackValidator.label = {firstfilter}	
+replace multiTrackValidator.associators = {"TrackAssociatorByHits"}
+replace multiTrackValidator.UseAssociators = true
+
+sequence valid = {
+  genParticles,
+  trackingParticles,
+  cutsTPEffic, 
+  cutsTPFake,
+  multiTrackValidator	
+}
