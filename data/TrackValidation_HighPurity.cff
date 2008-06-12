@@ -6,14 +6,14 @@
 
   # Tracking particle module
 include "SimGeneral/TrackingAnalysis/data/trackingParticles.cfi"
-replace trackingtruthprod.TrackerHitLabels = {"TrackerHits"}
+replace mergedtruth.TrackerHitLabels = {"TrackerHits"}
 
   # Track Associators
 include "SimTracker/TrackAssociation/data/TrackAssociatorByChi2.cfi"
 include "SimTracker/TrackAssociation/data/TrackAssociatorByHits.cfi"
-replace TrackAssociatorByHitsESProducer.associateStrip = false 
-replace TrackAssociatorByHitsESProducer.associatePixel = false
-replace TrackAssociatorByHitsESProducer.ROUList = {"TrackerHits"}
+replace TrackAssociatorByHits.associateStrip = false 
+replace TrackAssociatorByHits.associatePixel = false
+replace TrackAssociatorByHits.ROUList = {"TrackerHits"}
 ##new postreco sequence
 include "SimTracker/TrackAssociation/data/trackMCMatch.cfi" 
 include "SimTracker/TrackAssociation/data/trackingParticleRecoTrackAsssociation.cff"
