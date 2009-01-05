@@ -1,4 +1,3 @@
-
 <use name=FWCore/Framework>
 <use name=FWCore/ParameterSet>
 <use name=DQMServices/Core>
@@ -13,3 +12,5 @@
 <library file=JetComparison.cc name=JetComparison>
 <flags EDM_PLUGIN=1>
 </library>
+
+<bin file=timing.cpp></bin>
